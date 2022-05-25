@@ -11,11 +11,12 @@
 }
 
 .content {
-    width: var(--default-layout-width);
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: var(--default-layout-width);
+    height: 100%;
+    padding: 0px 24px;
 }
 
 .logo {
@@ -101,4 +102,18 @@
 }
 
 .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.more-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 16px;
+    width: 20px;
+    height: 20px;
+    font-size: 2.2rem;
+    cursor: pointer;
 }
