@@ -18,6 +18,7 @@ function Menu({ datas = [], children }) {
         return currentMenu.map((item, index) => {
             return (
                 <MenuItem
+                    separate={item.separate}
                     to={item.to}
                     data={item}
                     key={index}
@@ -37,8 +38,9 @@ function Menu({ datas = [], children }) {
 
     return (
         <Tippy
+            trigger="click"
+            offset={[12, 8]}
             interactive
-            visible
             delay={[0, 700]}
             placement="bottom-end"
             render={(arr) => {
@@ -58,6 +60,9 @@ function Menu({ datas = [], children }) {
                         </TippyWrapper>
                     </div>
                 );
+            }}
+            onHide={() => {
+                setHistory((prev) => prev.slice(0, 1));
             }}
         >
             {children}

@@ -14,6 +14,7 @@ function Button({
     text = false,
     small = false,
     lager = false,
+    textThin = false,
     iconLeft,
     iconRight,
     className,
@@ -31,6 +32,7 @@ function Button({
         text,
         small,
         lager,
+        textThin,
         [className]: className,
     });
 
