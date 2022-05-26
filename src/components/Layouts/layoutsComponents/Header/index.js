@@ -19,8 +19,8 @@ import { Wrapper as TippyWrapper } from '~/components/WrapperPopper';
 import { AccountItem } from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Menu';
-import { MessageIcon, NotifiIcon, SearchIcon } from '~/components/Icons';
-import Images from '~/components/Images';
+import { MessageIcon, NotifiIcon, SearchIcon } from '~/components/Icon';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -150,12 +150,12 @@ function Header() {
                     )}
                     <Menu datas={isLogin ? USER_MENU : MENU_DATA}>
                         {isLogin ? (
-                            <Images
+                            <Image
                                 className={cx('user-avt')}
                                 src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/ea0854578085ab26effc2c7b8cefa270~c5_100x100.jpeg?x-expires=1651658400&x-signature=zeUCDyTxctGYZ5%2Bsh422klviXFE%3D"
                                 alt="Avatar"
                                 fallbacks="https://static.fullstack.edu.vn/static/media/f8-icon.7ad2b161d5e80c87e516.png"
-                            ></Images>
+                            ></Image>
                         ) : (
                             <span className={cx('more-icon')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>

@@ -3,7 +3,7 @@ import { useState, forwardRef } from 'react';
 import images from '~/assets/images';
 import styles from './Images.module.scss';
 
-function Images({ src, fallbacks: customFallbacks = images.noAvatar, alt, className, ...props }, ref) {
+function Image({ src, fallbacks: customFallbacks = images.noAvatar, alt, className, ...props }, ref) {
     const [fallback, setFallback] = useState('');
 
     return (
@@ -21,4 +21,4 @@ function Images({ src, fallbacks: customFallbacks = images.noAvatar, alt, classN
     );
 }
 
-export default forwardRef(Images);
+export default forwardRef(Image);
