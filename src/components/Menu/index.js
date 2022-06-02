@@ -38,7 +38,6 @@ function Menu({ datas = [], children }) {
 
     return (
         <Tippy
-            trigger="click"
             offset={[12, 8]}
             interactive
             delay={[0, 700]}

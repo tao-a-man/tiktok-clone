@@ -1,10 +1,7 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import TippyHeadLess from '@tippyjs/react/headless'; // different import path!
 import Tippy from '@tippyjs/react';
 import {
-    faCircleXmark,
-    faSpinner,
     faPlus,
     faEllipsisVertical,
     faArrowRightToBracket,
@@ -15,12 +12,11 @@ import {
 import { faCircleQuestion, faKeyboard, faMoneyBill1, faUser } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Header.module.scss';
-import { Wrapper as TippyWrapper } from '~/components/WrapperPopper';
-import { AccountItem } from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Menu';
-import { MessageIcon, NotifiIcon, SearchIcon } from '~/components/Icon';
+import { MessageIcon, NotifiIcon } from '~/components/Icon';
 import Image from '~/components/Image';
+import Search from './Search';
 
 const cx = classNames.bind(styles);
 
@@ -91,35 +87,7 @@ function Header() {
                         alt="Tiktok"
                     ></img>
                 </div>
-                <TippyHeadLess
-                    delay={[0, 500]}
-                    interactive
-                    render={(arr) => {
-                        return (
-                            <div className={cx('search-result')} tabIndex="-1" {...arr}>
-                                <TippyWrapper>
-                                    <h4 className={cx('search-title')}>Account</h4>
-                                    <AccountItem />
-                                    <AccountItem />
-                                    <AccountItem />
-                                    <AccountItem />
-                                    <AccountItem />
-                                </TippyWrapper>
-                            </div>
-                        );
-                    }}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="Search accounts and videos" spellCheck={false}></input>
-                        <button className={cx('search__clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cx('search__loading')} icon={faSpinner}></FontAwesomeIcon>
-                        <button className={cx('search__btn')}>
-                            <SearchIcon></SearchIcon>
-                        </button>
-                    </div>
-                </TippyHeadLess>
+                <Search></Search>
                 <div className={cx('action')}>
                     <Button text iconLeft={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}>
                         Upload

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useState, forwardRef } from 'react';
 import images from '~/assets/images';
-import styles from './Images.module.scss';
+import styles from './Image.module.scss';
 
 function Image({ src, fallbacks: customFallbacks = images.noAvatar, alt, className, ...props }, ref) {
     const [fallback, setFallback] = useState('');
