@@ -1,11 +1,14 @@
+// eslint-disable-next-line
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import TippyHeadLess from '@tippyjs/react/headless'; // different import path!
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import * as searchServices from '~/apiServices/searchServices';
 import { Wrapper as TippyWrapper } from '~/components/WrapperPopper';
 import { AccountItem } from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icon';
+import { useDebounce } from '~/hooks';
 
 import styles from './Search.module.scss';
 import { useEffect, useRef, useState } from 'react';
@@ -16,11 +19,28 @@ function Search() {
     const [resultValue, setResultValue] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    const debounced = useDebounce(inputValue, 500);
+    console.log('3');
 
     useEffect(() => {
-        console.log(showResult);
-        setResultValue([1]);
-    }, [showResult]);
+        if (!debounced) {
+            setResultValue([]);
+            return;
+        }
+
+        const fetchApi = async () => {
+            setLoading(true);
+
+            const result = await searchServices.search(debounced);
+
+            setResultValue(result);
+            setLoading(false);
+        };
+
+        fetchApi();
+    }, [debounced]);
 
     const inputRef = useRef();
 
@@ -29,7 +49,7 @@ function Search() {
     };
 
     const handleClearInput = () => {
-        setShowResult(false);
+        setResultValue([]);
         setInputValue('');
         inputRef.current.focus();
     };
@@ -44,11 +64,9 @@ function Search() {
                     <div className={cx('search-result')} tabIndex="-1" {...arr}>
                         <TippyWrapper>
                             <h4 className={cx('search-title')}>Account</h4>
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
+                            {resultValue.map((result) => {
+                                return <AccountItem key={result.id} data={result} />;
+                            })}
                         </TippyWrapper>
                     </div>
                 );
@@ -61,15 +79,19 @@ function Search() {
                     value={inputValue}
                     placeholder="Search accounts and videos"
                     spellCheck={false}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={(e) => {
+                        if (e.target.value[0] !== ' ') {
+                            setInputValue(e.target.value);
+                        }
+                    }}
                     onFocus={() => setShowResult(true)}
                 ></input>
-                {!!inputValue && (
+                {!!inputValue && !loading && (
                     <button onClick={handleClearInput} className={cx('search__clear')}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
-                {/* <FontAwesomeIcon className={cx('search__loading')} icon={faSpinner}></FontAwesomeIcon> */}
+                {loading && <FontAwesomeIcon className={cx('search__loading')} icon={faSpinner}></FontAwesomeIcon>}{' '}
                 <button className={cx('search__btn')}>
                     <SearchIcon></SearchIcon>
                 </button>
